@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Card, CardBody, FormGroup, Label, Input, Button } from "reactstrap";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function AddVideos() {
@@ -12,22 +14,48 @@ function AddVideos() {
   const NewsTittle = useRef("");
   const News = useRef("");
 
-  const values = async() => {
-    let formData = new FormData();
+  const values = async () => {
 
-    await formData.append("files", files);
-    await formData.append("filed", Videofiles);
-   
+    if (
+      NewsTittle.current.value == "" ||
+      Catego.current.value == "" ||
+      News.current.value == ""
+    ) {
 
-    await formData.append("Category", Catego.current.value);
-    
-    await formData.append("NewsSubTittle", News.current.value);
-    await formData.append("NewsTittle", NewsTittle.current.value);
-    console.log(Catego.current.value);
-    console.log(NewsTittle.current.value);
-    console.log(News.current.value);
+      toast.error("Please Enter Video Tittle and Video SubTittle");
 
-    axios.post(process.env.REACT_APP_API_BASE_URL + "/AddVideoData",formData)
+    } else if (!files || !Videofiles ) {
+
+      toast.error("Please Select Video Image and Video ");
+
+    }else if (!files.name.match(/\.(jpg|jpeg|png)$/)){
+
+      toast.error("Please Select Image in jpg, jpeg, png  ");
+
+    }else if (!Videofiles.name.match(/\.(mp4|mpeg|wmv|flv|avi)$/)){
+      toast.error("Please Select Video in mp4, mpeg, wmv, flv,avi ");
+
+    }else{
+      
+
+
+      let formData = new FormData();
+
+      await formData.append("files", files);
+      await formData.append("filed", Videofiles);
+
+
+      await formData.append("Category", Catego.current.value);
+
+      await formData.append("NewsSubTittle", News.current.value);
+      await formData.append("NewsTittle", NewsTittle.current.value);
+      console.log(Catego.current.value);
+      console.log(NewsTittle.current.value);
+      console.log(News.current.value);
+
+      axios.post(process.env.REACT_APP_API_BASE_URL + "/AddVideoData", formData)
+
+    }
 
   }
 
@@ -44,6 +72,7 @@ function AddVideos() {
 
   return (
     <>
+      <ToastContainer />
       <Card
         style={{
           width: "69rem",
@@ -54,7 +83,7 @@ function AddVideos() {
         }}
       >
         <CardBody>
-          
+
           <FormGroup>
             <Label
               for="exampleSelect"
@@ -94,7 +123,7 @@ function AddVideos() {
               style={{ width: "30%" }}
               accept="video/mpeg, video/x-ms-wmv, video/avi, video/mp4, "
               onChange={(e) => {
-                setFiles(e.target.files[0]);
+                setVideoFiles(e.target.files[0]);
               }}
             />
 
@@ -111,9 +140,9 @@ function AddVideos() {
               name="file"
               type="file"
               style={{ width: "30%" }}
-              accept="video/mp4"
+              accept="image/jpeg, image/jpg"
               onChange={(e) => {
-                setVideoFiles(e.target.files[0]);
+                setFiles(e.target.files[0]);
               }}
             />
 

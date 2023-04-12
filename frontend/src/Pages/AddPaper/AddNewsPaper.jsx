@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Modal,
   Alert,
@@ -22,10 +22,15 @@ function AddNewsPaper(addBreakingnewsModal, handleCloseNewsModal) {
   const [successMessage, setSuccessMessage] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [files, setFiles] = useState();
+  const days = useRef("");
+
 
 
 
   const dataValue = () => {
+
+    console.log(days.current.value);
+
     const errorPopup = async (value) => {
       // console.log(value);
       setAlertMessage(value);
@@ -46,12 +51,12 @@ function AddNewsPaper(addBreakingnewsModal, handleCloseNewsModal) {
     } else {
       let formData = new FormData();
       formData.append("files", files);
-      let formattedDate = `${startDate.getDate()}-${
-        startDate.getMonth() + 1
-      }-${startDate.getFullYear()}`;
+      let formattedDate = `${startDate.getDate()}-${startDate.getMonth() + 1
+        }-${startDate.getFullYear()}`;
       console.log(formattedDate);
 
       formData.append("Date", formattedDate);
+      formData.append("Day", days.current.value);
       formData.append("year", `${startDate.getFullYear()}`);
       formData.append("month", `${startDate.getMonth() + 1}`);
 
@@ -126,6 +131,30 @@ function AddNewsPaper(addBreakingnewsModal, handleCloseNewsModal) {
                 <br />
 
                 <Label for="exampleFile" style={{ fontWeight: "500" }}>
+                  New's Paper Day {" "}
+                  
+                </Label>
+
+                <Input
+                  id="exampleEmail"
+                  name="select"
+                  // placeholder="with a placeholder"
+                  type="select"
+                  style={{ width: "60%" }}
+                  innerRef={days}
+                >
+                <option>સોમવાર</option>
+                <option>મંગળવાર </option>
+                <option>બુધવાર</option>
+                <option>ગુરુવાર</option>
+                <option>શુક્રવાર</option>
+                <option>શનિવાર</option>
+                <option>રવિવાર</option>
+                </Input>
+                <br />
+
+
+                <Label for="exampleFile" style={{ fontWeight: "500" }}>
                   Select New's Paper{" "}
                   <a style={{ color: "#dc3545" }}>( only PDF)</a>
                 </Label>
@@ -138,6 +167,8 @@ function AddNewsPaper(addBreakingnewsModal, handleCloseNewsModal) {
                     setFiles(e.target.files[0]);
                   }}
                 />
+
+
 
                 {/* <Label>Breaking News</Label>
                 <Input
