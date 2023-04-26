@@ -103,6 +103,8 @@ function AddCategoryButton(addCategoryModal, handleCloseNewsModal) {
               &nbsp;
               <Input type="text" innerRef={EngInput} />
 
+             
+
               <Label style={{ fontWeight: "500" }}>
                 Color code in Hex:
               </Label>{" "}
