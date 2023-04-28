@@ -1,42 +1,43 @@
-import React, {useState, useCallback, useMemo, useEffect} from 'react'
+import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { Table, Card, CardTitle, CardBody, Col, Button, Alert } from "reactstrap";
-import AddCategoryButton from './AddSubcategory';
-import DeleteCategoryButton from "./DeletSubcategory"
+import AddSubCategoryButton from './AddSubcategory';
+import DeleteSubCategoryButton from "./DeletSubcategory"
 import axios from "axios";
-function AddCategory() {
-    const [addCategoryModal, setAddCategoryModal] = useState(false);
- 
-    const [DeleteCategoryModal, setDeleteCategoryModal] = useState(false);
-    const [resData, setResData] = useState([]);
-    useEffect(() => {
-      axios.get(process.env.REACT_APP_API_BASE_URL+"/GetCategory").then((response) => {
-        setResData(response.data);
-      });
-  
-      return () => {};
-    }, [DeleteCategoryModal,addCategoryModal]);
+function SubCategory() {
+  const [addCategoryModal, setAddCategoryModal] = useState(false);
 
-    // console.log(resData[0].Category.EngCategory)
-  
+  const [DeleteCategoryModal, setDeleteCategoryModal] = useState(false);
+  const [resData, setResData] = useState([]);
+  useEffect(() => {
+    axios.get(process.env.REACT_APP_API_BASE_URL + "/GetCategory").then((response) => {
+      setResData(response.data);
+      console.log(response.data);
+    });
+
+    return () => { };
+  }, [DeleteCategoryModal, addCategoryModal]);
+
+  // console.log(resData[0].Category.EngCategory)
 
 
-    const DeletehandleShowNewsModal =useCallback( () => {
-      setDeleteCategoryModal(true);
-    }, [DeleteCategoryModal])
-  
-    const DeletehandleCloseNewsModal =useCallback( () => {
-      setDeleteCategoryModal(false);
-    }, [DeleteCategoryModal])
-    
 
-    const handleShowNewsModal = () => {
-      setAddCategoryModal(true);
-    };
-  
-    const handleCloseNewsModal = () => {
-      setAddCategoryModal(false);
-    };
-  return(
+  const DeletehandleShowNewsModal = useCallback(() => {
+    setDeleteCategoryModal(true);
+  }, [DeleteCategoryModal])
+
+  const DeletehandleCloseNewsModal = useCallback(() => {
+    setDeleteCategoryModal(false);
+  }, [DeleteCategoryModal])
+
+
+  const handleShowNewsModal = () => {
+    setAddCategoryModal(true);
+  };
+
+  const handleCloseNewsModal = () => {
+    setAddCategoryModal(false);
+  };
+  return (
     <React.Fragment>
       <div className="page-content">
         <Col lg={12}>
@@ -57,7 +58,7 @@ function AddCategory() {
                 type="submit"
                 color="success"
                 name="btn"
-                
+
                 onClick={handleShowNewsModal}
                 style={{
                   margin: "10px 0px 10px 20px",
@@ -65,13 +66,13 @@ function AddCategory() {
               >
                 Add Categories
               </Button>
-              {AddCategoryButton(addCategoryModal, handleCloseNewsModal)}
+              {AddSubCategoryButton(addCategoryModal, handleCloseNewsModal, resData)}
 
               <Button
                 type="submit"
                 color="danger"
                 name="btn"
-                
+
                 onClick={DeletehandleShowNewsModal}
                 style={{
                   margin: "10px 20px 10px 20px",
@@ -79,7 +80,7 @@ function AddCategory() {
               >
                 Delete Categories
               </Button>
-              {DeleteCategoryButton(DeleteCategoryModal, DeletehandleCloseNewsModal,resData)}
+              {DeleteSubCategoryButton(DeleteCategoryModal, DeletehandleCloseNewsModal, resData)}
             </CardTitle>
             <CardBody>
               <Table hover>
@@ -88,24 +89,35 @@ function AddCategory() {
                     {/* <th>{"SR_NO"}</th> */}
                     <th>{"CATEGORY_NAME"}</th>
                     <th>{"CATEGORY_NAME _IN_ENGLISH"}</th>
+                    <th>{"SUCATEGORY_NAME"}</th>
                     <th>{"CATEGORY_COLOR_CODE"}</th>
                     {/* <th>{"CREATED_DATE"}</th> */}
                   </tr>
                 </thead>
                 <tbody className="text-center">
                   {/* <tr> */}
-                    {/* <td colSpan={19}> */}
-                    {resData.map((newsItem, index) => (
-                  <tr key={index} style={{width:"60rem"}}>
-                    {/* <th scope="row">{newsItem._Id}</th> */}
-                    <td>{newsItem.Category.GujCategory}</td>
-                    <td>{newsItem.Category.EngCategory}</td>
-                    <td>{newsItem.Category.Colored}</td>
-                   
-                    {/* <td>{newsItem.Submitted}</td> */}
+                  {/* <td colSpan={19}> */}
+                  {resData.map((newsItem, index) => (
+                    <tr key={index} style={{ width: "60rem" }}>
+                      {/* <th scope="row">{newsItem._Id}</th> */}
+                      {console.log(newsItem.SubCategory)}
+                      <td>{newsItem.Category.GujCategory}</td>
+                      <td>{newsItem.Category.EngCategory}</td>
+                      {/* <td>{newsItem.Category}</td> */}
+
+                      <td>  {newsItem.SubCategory.map((item, index) => (
+                       <>
+                          <p key={index}>GujSubCategory: {item.GujSubCategory}, EngSubCategory: {item.EngSubCategory}</p>
+                          {/* <p key={index}>,</p> */}
+                          </>
+                        
+                      ))}</td>
+                      <td>{newsItem.Category.Colored}</td>
+
+                      {/* <td>{newsItem.Submitted}</td> */}
                     </tr>
-                    ))}
-                    {/* </td> */}
+                  ))}
+                  {/* </td> */}
                   {/* </tr> */}
                 </tbody>
               </Table>
@@ -117,4 +129,4 @@ function AddCategory() {
   )
 }
 
-export default AddCategory
+export default SubCategory

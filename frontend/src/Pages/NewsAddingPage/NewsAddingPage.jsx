@@ -15,7 +15,7 @@ function NewsAddingPage() {
   const [alert, setAlert] = useState(false);
   const [failAlert, setFailAlert] = useState(false);
   const [message, setMessage] = useState("");
-  const config ={
+  const config = {
     placeholder: "Start Typing",
   }
 
@@ -31,6 +31,11 @@ function NewsAddingPage() {
   // 	[placeholder]
   // );
 
+
+
+
+  
+
   const handleChange = (e) => {
     setFiles(e.target.files[0]);
     setFiled(URL.createObjectURL(e.target.files[0]));
@@ -43,12 +48,26 @@ function NewsAddingPage() {
   const NewsTittle = useRef("");
   const News = useRef("");
   const Imgt = useRef("");
-  const Catego = useRef({});
+  // const Catego = useRef({});
+  const [Catego, setCatego]= useState();
   const [files, setFiles] = useState();
   // const [Videofiles, setVideoFiles] = useState();
   const [filed, setFiled] = useState("");
   const [resData, setResData] = useState([]);
+  const [indexs, setindexs] = useState("");
 
+  console.log("indexs",indexs);
+
+  const subCateo =  resData.filter((EngSubCategorye) => {
+    console.log("EngSubCategorye",EngSubCategorye.Category.EngCategory, indexs )
+     
+
+    return  EngSubCategorye.Category.EngCategory == indexs
+    
+    
+  })
+
+  console.log("subCateo",subCateo[0].SubCategory);
   const values = async () => {
     console.log(editor.current.value.split(" ").length);
     // if(await(editor.current.value.split(' ').length) < 500 ) {
@@ -138,18 +157,18 @@ function NewsAddingPage() {
                   if (response.status == 200) {
                     setAlert(true);
                     setMessage("Successfully Added News");
-                     
-                    NewsTittle.current.value= "";
-                    News.current.value="";
+
+                    NewsTittle.current.value = "";
+                    News.current.value = "";
                     editor.value = "";
-                    editor.current.value ="";
-                    Imgt.current.value ="";
+                    editor.current.value = "";
+                    Imgt.current.value = "";
                     setFiles("");
                     setFiled("");
                     setContent("");
-                    console.log(content );
-                    console.log(editor.current.value );
-                
+                    console.log(content);
+                    console.log(editor.current.value);
+
                     await setTimeout(() => {
 
                       setMessage("");
@@ -180,7 +199,7 @@ function NewsAddingPage() {
         setResData(response.data);
       });
 
-   
+
   }, []);
 
   console.log(resData);
@@ -216,15 +235,48 @@ function NewsAddingPage() {
               type="select"
               bsSize="lg"
               style={{ width: "30%" }}
-              innerRef={Catego}
+              // innerRef={Catego}
+              value={Catego}
+              onChange={(e)=>{setindexs(e.target.value); setCatego(e.target.value)}
+              
+            }
             >
               {resData.map((item, index) => {
                 return (
+
                   <option key={index} value={item.Category.EngCategory}>
                     {item.Category.GujCategory}{" "}
                   </option>
                 );
               })}
+            </Input>
+            <br />
+
+            <Label
+              for="exampleSelect"
+              style={{ fontWeight: "500", marginLeft: "0.5%" }}
+            >
+              Select News Sub Category
+            </Label>
+
+            <Input
+              id="exampleSelect"
+              name="select"
+              type="select"
+              bsSize="lg"
+              style={{ width: "30%" }}
+              innerRef={Catego}
+            >
+
+              {/* {subCateo.map((item, index) => { 
+                return (
+
+                  <option key={index} value={item.Category.EngCategory}>
+                    {item.Category.GujCategory}{" "}
+                  </option>
+                );
+
+              })}  */}
             </Input>
             <br />
             <Label
@@ -242,7 +294,7 @@ function NewsAddingPage() {
               style={{ width: "30%" }}
               accept="image/jpeg, image/jpg"
               onChange={handleChange}
-              // setFiles(e.target.files[0]);
+            // setFiles(e.target.files[0]);
             />
             <img style={{ width: "30%" }} src={filed} alt="" />
             <br />
@@ -306,8 +358,8 @@ function NewsAddingPage() {
 
             <JoditEditor
               ref={editor}
-              value=""           
-               config={config}
+              value=""
+              config={config}
               tabIndex={1} // tabIndex of textarea
               onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
               onChange={(newContent) => {

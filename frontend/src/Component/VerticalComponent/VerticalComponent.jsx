@@ -39,7 +39,7 @@ function VerticalComponent() {
           </ListGroupItem>
           <ListGroupItem className="new">
             <img src={Categories} alt="" />
-            <a className="NavItems" href="/AddSubCategory"> SubCategories </a>
+            <a className="NavItems" href="/SubCategory"> SubCategories </a>
           </ListGroupItem>
           <ListGroupItem className="new">
             <img src={Ebook} alt="" />

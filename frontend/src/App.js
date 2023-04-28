@@ -13,7 +13,7 @@ import DeleteNews from "./Pages/DeleteNews/DeleteNews";
 import NewsAddingPage from "./Pages/NewsAddingPage/NewsAddingPage";
 import { FullNews } from "./Pages/DeleteNews/FullNews";
 import EditNews from "./Pages/DeleteNews/EditNews";
-import AddSubCategory from "./Pages/AddSubCategory/SubCategory";
+import SubCategory from "./Pages/AddSubCategory/SubCategory";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Confirmation from "./Pages/DeleteNews/Confirmation";
@@ -29,7 +29,7 @@ function App() {
           <NavBar />
 
           <Row
-            className="g-0 gy-0 border-0"
+            className="g-0 gy-0 border-0" 
             style={{ border: "1px solid red", height: "91vh" }}
           >
             <Col
@@ -43,7 +43,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<NewsAddingPage />} />
                 <Route path="/AddCategory" element={<AddCategory />} />
-                <Route path="/AddSubCategory" element={<AddSubCategory />} />
+                <Route path="/SubCategory" element={<SubCategory />} />
                 <Route path="/AddPaper" element={<AddPaper />} />
                 <Route path="/Addvideos" element={<AddVideos />} />
                 <Route path="/BreakingNews" element={<BreakingNews />} />
