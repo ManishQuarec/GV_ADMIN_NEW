@@ -34,7 +34,7 @@ function NewsAddingPage() {
 
 
 
-  
+
 
   const handleChange = (e) => {
     setFiles(e.target.files[0]);
@@ -48,28 +48,50 @@ function NewsAddingPage() {
   const NewsTittle = useRef("");
   const News = useRef("");
   const Imgt = useRef("");
+  const Categosub = useRef(""); 
   // const Catego = useRef({});
-  const [Catego, setCatego]= useState();
+  const [Catego, setCatego] = useState();
   const [files, setFiles] = useState();
   // const [Videofiles, setVideoFiles] = useState();
   const [filed, setFiled] = useState("");
   const [resData, setResData] = useState([]);
   const [indexs, setindexs] = useState("");
 
-  console.log("indexs",indexs);
+  const [newsubcate, setNewSubCate] = useState([]);
 
-  const subCateo =  resData.filter((EngSubCategorye) => {
-    console.log("EngSubCategorye",EngSubCategorye.Category.EngCategory, indexs )
-     
 
-    return  EngSubCategorye.Category.EngCategory == indexs
-    
-    
-  })
 
-  console.log("subCateo",subCateo[0].SubCategory);
+
+  const handlesubmenu = () => {
+    const subCateo = resData.filter((EngSubCategorye) => {
+      console.log("EngSubCategorye", EngSubCategorye.Category.EngCategory, indexs)
+
+
+      return EngSubCategorye.Category.EngCategory == indexs
+
+
+    })
+
+    setNewSubCate(
+
+      subCateo
+    )
+
+
+
+  }
+
+  console.log("indexs", newsubcate);
+
+
+
+  // console.log("subCateo", subCateo);
   const values = async () => {
-    console.log(editor.current.value.split(" ").length);
+
+console.log("Categosub",Categosub.current.value);
+
+
+    console.log("Catego",Catego);
     // if(await(editor.current.value.split(' ').length) < 500 ) {
 
     //   setFailAlert(true);
@@ -124,10 +146,11 @@ function NewsAddingPage() {
             if (
               NewsTittle.current.value == "" ||
               editor.current.value == "" ||
-              News.current.value == ""
+              News.current.value == "" ||
+              Catego == "Select Category"
             ) {
               setFailAlert(true);
-              setMessage("Please Enter  News Tittle and News");
+              setMessage("Please Fill form completly ");
 
               await setTimeout(() => {
                 setFailAlert(false);
@@ -140,13 +163,15 @@ function NewsAddingPage() {
 
               formData.append("files", files);
               // formData.append("Videofiles", Videofiles);
+              await formData.append("SubCategory", Categosub.current.value);
 
-              await formData.append("Category", Catego.current.value);
+              await formData.append("Category", Catego);
               await formData.append("News", editor.current.value);
               await formData.append("NewsSubTittle", News.current.value);
               await formData.append("NewsTittle", NewsTittle.current.value);
 
-              console.log(Catego.current.value);
+
+              
 
               axios
                 .post(
@@ -200,6 +225,8 @@ function NewsAddingPage() {
       });
 
 
+
+
   }, []);
 
   console.log(resData);
@@ -237,14 +264,22 @@ function NewsAddingPage() {
               style={{ width: "30%" }}
               // innerRef={Catego}
               value={Catego}
-              onChange={(e)=>{setindexs(e.target.value); setCatego(e.target.value)}
-              
-            }
+              onClick={handlesubmenu}
+
+              onChange={(e) => { setindexs(e.target.value); setCatego(e.target.value) }
+
+              }
+
             >
+
+              <option defalut>
+                Select Category
+              </option>
               {resData.map((item, index) => {
                 return (
 
-                  <option key={index} value={item.Category.EngCategory}>
+
+                  <option key={index} value={item.Category.EngCategory} >
                     {item.Category.GujCategory}{" "}
                   </option>
                 );
@@ -265,18 +300,26 @@ function NewsAddingPage() {
               type="select"
               bsSize="lg"
               style={{ width: "30%" }}
-              innerRef={Catego}
+              innerRef={Categosub}
             >
 
-              {/* {subCateo.map((item, index) => { 
+              <option defalut>
+----
+              </option>
+
+              {newsubcate.map((item, index) => {
                 return (
 
-                  <option key={index} value={item.Category.EngCategory}>
-                    {item.Category.GujCategory}{" "}
-                  </option>
-                );
+                  item.SubCategory.map((item, index) => {
+                    return (
 
-              })}  */}
+                      <option key={index} value={item.EngSubCategory}>
+                        {item.GujSubCategory}{" "}
+                      </option>
+                    );
+                  })
+                )
+              })}
             </Input>
             <br />
             <Label
