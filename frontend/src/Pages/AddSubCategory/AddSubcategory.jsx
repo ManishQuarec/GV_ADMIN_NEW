@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import axios from "axios";
 
-function AddSubcategory(addCategoryModal,handleCloseNewsModal,resData) {
+function AddSubcategory(addCategoryModal, handleCloseNewsModal, resData) {
   const Catego = useRef({});
   const GujSubInput = useRef("");
   const EngSubInput = useRef("");
@@ -24,13 +24,13 @@ function AddSubcategory(addCategoryModal,handleCloseNewsModal,resData) {
 
 
   const DataValues = async () => {
-   
+
     await axios.post(process.env.REACT_APP_API_BASE_URL + "/AddSubCategory", {
       EngInput: Catego.current.value,
-      GujSubCategory:GujSubInput.current.value,
+      GujSubCategory: GujSubInput.current.value,
       EngSubCategory: EngSubInput.current.value
 
-    }) .then(async (response) => {
+    }).then(async (response) => {
       if (response.status == 200) {
         setAlert(true);
         setMessage("Success");
@@ -42,16 +42,16 @@ function AddSubcategory(addCategoryModal,handleCloseNewsModal,resData) {
         }, 2500);
       }
     })
-    .catch(async (error) => {
-      setFailAlert(true);
-      setMessage("Failed");
+      .catch(async (error) => {
+        setFailAlert(true);
+        setMessage("Failed");
 
-      await setTimeout(() => {
-        setFailAlert(false);
-        setMessage("");
-        handleCloseNewsModal();
-      }, 2500);
-    });
+        await setTimeout(() => {
+          setFailAlert(false);
+          setMessage("");
+          handleCloseNewsModal();
+        }, 2500);
+      });
   };
 
 
@@ -71,7 +71,7 @@ function AddSubcategory(addCategoryModal,handleCloseNewsModal,resData) {
             <FormGroup switch></FormGroup>
 
             <Form>
-             
+
               <Label
                 for="exampleSelect"
                 style={{ fontWeight: "500", marginLeft: "0.5%" }}
@@ -108,7 +108,7 @@ function AddSubcategory(addCategoryModal,handleCloseNewsModal,resData) {
 
               <ModalFooter>
                 <Button type="button" onClick={DataValues}>
-                  Delete
+                  Add
                 </Button>
                 <Button
                   type="button"

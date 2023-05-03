@@ -8,20 +8,23 @@ import {
   CardText,
   Button,
   Col,
+  Row
 } from "reactstrap";
 
 import AddNewsPaper from "./AddNewsPaper";
 import DeleteNewsPaper from "./DeleteNewsPaper";
 import axios from "axios";
 import fileDownload from 'js-file-download'
+import VerticalComponent from "../../Component/VerticalComponent/VerticalComponent";
 
-function AddPaper () {
+
+function AddPaper() {
   const [newsData, setNewsData] = useState([]);
   const [addBreakingnewsModal, setBreakingnewsModal] = useState(false);
   const [deleteBreakingnewsModal, setDeleteBreakingnewsModal] = useState(false);
- 
 
-  
+
+
   const download = (e) => {
 
     console.log(e);
@@ -64,7 +67,7 @@ function AddPaper () {
     setBreakingnewsModal(false);
   };
 
-//  console.log("newsData", newsData);
+  //  console.log("newsData", newsData);
   // const record = [...newsData].sort((a, b) => new Date(b.NewsPaperDate) -  new Date(a.NewsPaperDate));
 
   // var record = [...newsData].sort((a,b) => Date.parse(a.NewsPaperDate) - Date.parse(b.NewsPaperDate)); 
@@ -72,10 +75,10 @@ function AddPaper () {
   let record = newsData.sort((a, b) => new Date(...a.NewsPaperDate.split('-').reverse()) - new Date(...b.NewsPaperDate.split('-').reverse()));
 
 
-//   var record = newsData.sort((a,b) => {
-//     return new Date(a.NewsPaperDate).getTime() - 
-//         new Date(b.NewsPaperDate).getTime()
-// }).reverse();
+  //   var record = newsData.sort((a,b) => {
+  //     return new Date(a.NewsPaperDate).getTime() - 
+  //         new Date(b.NewsPaperDate).getTime()
+  // }).reverse();
 
   console.log("record", record);
 
@@ -93,81 +96,94 @@ function AddPaper () {
 
   return (
     <>
-      {" "}
-      <Col lg={12}>
-        <Card>
-          <CardTitle
-            style={{ display: "flex", justifyContent: "space-between" }}
-          >
-            <span
-              style={{
-                padding: "20px 0px 10px 20px",
-                fontSize: 25,
-                fontWeight: "bold",
-              }}
-            >
-              News Paper
-            </span>
-            <Button
-              type="submit"
-              name="btn"
-              onClick={handleShowNewsModal}
-              style={{
-                margin: "20px 0px 10px 20px",
-                backgroundColor: "Green",
-              }}
-            >
-              Add News Paper
-            </Button>
-            {AddNewsPaper(addBreakingnewsModal, handleCloseNewsModal)}
-            <Button
-              // color="info"
-              type="submit"
-              name="btn"
-              color="danger"
-              onClick={handleShowDeleteModal}
-              style={{
-                margin: "20px 20px 10px 20px",
-                backgroundColor: "Red yellow",
-              }}
-            >
-              Delete New's Paper
-            </Button>
-            {DeleteNewsPaper(deleteBreakingnewsModal, handleCloseDeleteModal)}
-          </CardTitle>
-          <CardBody>
-            <Table hover>
-              <thead>
-                <tr className="text-center">
-                  {/* <th>Sr No.</th> */}
-                  <th>Date</th>
-                  <th>Day</th>
-                  <th> News Paper</th>
-
-                </tr>
-              </thead>
-              <tbody className="text-center">
-
-                {
-
-                  record.slice(0)
-                  .reverse().map((newsItem, index) => (
-                    <tr style={{ width: "60rem" }}key={index}>
-                      <th scope="row">{newsItem.NewsPaperDate}</th>
-                      <th scope="row">{newsItem.Day?newsItem.Day:"રવિવાર"}</th>
-                      <td>
-                        <button onClick={(e) => { download(newsItem.Path) }}>Download </button>
-
-                      </td>
-
+      <Row
+        className="g-0 gy-0 border-0"
+        style={{ border: "1px solid red", height: "91vh" }}
+      >
+        <Col
+          sm={2}
+          style={{ backgroundColor: "black" }}
+          className="g-0 gy-0 border-0"
+        >
+          <VerticalComponent />
+        </Col>
+        <Col sm={10} style={{ height: "50rem" }}>
+          <Col lg={12}>
+            <Card>
+              <CardTitle
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
+                <span
+                  style={{
+                    padding: "20px 0px 10px 20px",
+                    fontSize: 25,
+                    fontWeight: "bold",
+                  }}
+                >
+                  News Paper
+                </span>
+                <Button
+                  type="submit"
+                  name="btn"
+                  onClick={handleShowNewsModal}
+                  style={{
+                    margin: "20px 0px 10px 20px",
+                    backgroundColor: "Green",
+                  }}
+                >
+                  Add News Paper
+                </Button>
+                {AddNewsPaper(addBreakingnewsModal, handleCloseNewsModal)}
+                <Button
+                  // color="info"
+                  type="submit"
+                  name="btn"
+                  color="danger"
+                  onClick={handleShowDeleteModal}
+                  style={{
+                    margin: "20px 20px 10px 20px",
+                    backgroundColor: "Red yellow",
+                  }}
+                >
+                  Delete New's Paper
+                </Button>
+                {DeleteNewsPaper(deleteBreakingnewsModal, handleCloseDeleteModal)}
+              </CardTitle>
+              <CardBody>
+                <Table hover>
+                  <thead>
+                    <tr className="text-center">
+                      {/* <th>Sr No.</th> */}
+                      <th>Date</th>
+                      <th>Day</th>
+                      <th> News Paper</th>
 
                     </tr>
-                  ))}
-              </tbody>
-            </Table>
-          </CardBody>
-        </Card>
-      </Col>
+                  </thead>
+                  <tbody className="text-center">
+
+                    {
+
+                      record.slice(0)
+                        .reverse().map((newsItem, index) => (
+                          <tr style={{ width: "60rem" }} key={index}>
+                            <th scope="row">{newsItem.NewsPaperDate}</th>
+                            <th scope="row">{newsItem.Day ? newsItem.Day : "રવિવાર"}</th>
+                            <td>
+                              <button onClick={(e) => { download(newsItem.Path) }}>Download </button>
+
+                            </td>
+
+
+                          </tr>
+                        ))}
+                  </tbody>
+                </Table>
+              </CardBody>
+            </Card>
+          </Col>
+        </Col>
+      </Row>
     </>
   );
 }

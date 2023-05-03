@@ -31,7 +31,7 @@ function VerticalComponent() {
         <div className="Data">
           <ListGroupItem className="new">
             <img src={ImgNews} alt="" />
-            <a className="NavItems" href="/">News</a>
+            <a className="NavItems" href="/NewsAddingPage">News</a>
           </ListGroupItem>
           <ListGroupItem className="new">
             <img src={Categories} alt="" />
@@ -47,7 +47,7 @@ function VerticalComponent() {
           </ListGroupItem>
           <ListGroupItem className="new">
             <img src={BreakingNews} alt="" />
-            <a  className="NavItems" href="/BreakingNews"> Breaking News </a>
+            <a className="NavItems" href="/BreakingNews"> Breaking News </a>
           </ListGroupItem>
           <ListGroupItem className="new">
             <img src={Video} alt="" />

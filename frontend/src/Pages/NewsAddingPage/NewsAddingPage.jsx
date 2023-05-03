@@ -7,9 +7,11 @@ import {
   Input,
   Button,
   Alert,
+  Row, Col
 } from "reactstrap";
 import axios from "axios";
 import JoditEditor from "jodit-react";
+import VerticalComponent from "../../Component/VerticalComponent/VerticalComponent";
 
 function NewsAddingPage() {
   const [alert, setAlert] = useState(false);
@@ -48,7 +50,7 @@ function NewsAddingPage() {
   const NewsTittle = useRef("");
   const News = useRef("");
   const Imgt = useRef("");
-  const Categosub = useRef(""); 
+  const Categosub = useRef("");
   // const Catego = useRef({});
   const [Catego, setCatego] = useState();
   const [files, setFiles] = useState();
@@ -88,10 +90,10 @@ function NewsAddingPage() {
   // console.log("subCateo", subCateo);
   const values = async () => {
 
-console.log("Categosub",Categosub.current.value);
+    console.log("Categosub", Categosub.current.value);
 
 
-    console.log("Catego",Catego);
+    console.log("Catego", Catego);
     // if(await(editor.current.value.split(' ').length) < 500 ) {
 
     //   setFailAlert(true);
@@ -171,7 +173,7 @@ console.log("Categosub",Categosub.current.value);
               await formData.append("NewsTittle", NewsTittle.current.value);
 
 
-              
+
 
               axios
                 .post(
@@ -232,150 +234,162 @@ console.log("Categosub",Categosub.current.value);
   console.log(resData);
   return (
     <>
-      <Card
-        style={{
-          width: "69rem",
-          height: "auto",
-          marginLeft: "5rem",
-          marginTop: "3rem",
-          marginBottom: "2rem",
-        }}
+      <Row
+        className="g-0 gy-0 border-0"
+        style={{ border: "1px solid red", height: "91vh" }}
       >
-        <Alert
-          isOpen={alert || failAlert}
-          color={alert ? "success" : "danger"}
-          style={{ width: "40%", marginLeft: "60%", marginTop: "1%" }}
+        <Col
+          sm={2}
+          style={{ backgroundColor: "black" }}
+          className="g-0 gy-0 border-0"
         >
-          {message}
-        </Alert>
-        <CardBody>
-          <FormGroup>
-            <Label
-              for="exampleSelect"
-              style={{ fontWeight: "500", marginLeft: "0.5%" }}
+          <VerticalComponent />
+        </Col>
+        <Col sm={10} style={{ height: "50rem" }}>
+          <Card
+            style={{
+              width: "69rem",
+              height: "auto",
+              marginLeft: "5rem",
+              marginTop: "3rem",
+              marginBottom: "2rem",
+            }}
+          >
+            <Alert
+              isOpen={alert || failAlert}
+              color={alert ? "success" : "danger"}
+              style={{ width: "40%", marginLeft: "60%", marginTop: "1%" }}
             >
-              Select News Category
-            </Label>
-            <Input
-              id="exampleSelect"
-              name="select"
-              type="select"
-              bsSize="lg"
-              style={{ width: "30%" }}
-              // innerRef={Catego}
-              value={Catego}
-              onClick={handlesubmenu}
+              {message}
+            </Alert>
+            <CardBody>
+              <FormGroup>
+                <Label
+                  for="exampleSelect"
+                  style={{ fontWeight: "500", marginLeft: "0.5%" }}
+                >
+                  Select News Category
+                </Label>
+                <Input
+                  id="exampleSelect"
+                  name="select"
+                  type="select"
+                  bsSize="lg"
+                  style={{ width: "30%" }}
+                  // innerRef={Catego}
+                  value={Catego}
+                  onClick={handlesubmenu}
 
-              onChange={(e) => { setindexs(e.target.value); setCatego(e.target.value) }
+                  onChange={(e) => { setindexs(e.target.value); setCatego(e.target.value) }
 
-              }
+                  }
 
-            >
+                >
 
-              <option defalut>
-                Select Category
-              </option>
-              {resData.map((item, index) => {
-                return (
-
-
-                  <option key={index} value={item.Category.EngCategory} >
-                    {item.Category.GujCategory}{" "}
+                  <option defalut>
+                    Select Category
                   </option>
-                );
-              })}
-            </Input>
-            <br />
-
-            <Label
-              for="exampleSelect"
-              style={{ fontWeight: "500", marginLeft: "0.5%" }}
-            >
-              Select News Sub Category
-            </Label>
-
-            <Input
-              id="exampleSelect"
-              name="select"
-              type="select"
-              bsSize="lg"
-              style={{ width: "30%" }}
-              innerRef={Categosub}
-            >
-
-              <option defalut>
-----
-              </option>
-
-              {newsubcate.map((item, index) => {
-                return (
-
-                  item.SubCategory.map((item, index) => {
+                  {resData.map((item, index) => {
                     return (
 
-                      <option key={index} value={item.EngSubCategory}>
-                        {item.GujSubCategory}{" "}
+
+                      <option key={index} value={item.Category.EngCategory} >
+                        {item.Category.GujCategory}{" "}
                       </option>
                     );
-                  })
-                )
-              })}
-            </Input>
-            <br />
-            <Label
-              for="exampleFile"
-              style={{ fontWeight: "500", marginLeft: "0.5%" }}
-            >
-              Select Image
-            </Label>
-            <Input
-              // id="exampleFile"
-              innerRef={Imgt}
-              name="file"
-              type="file"
-              // value={}
-              style={{ width: "30%" }}
-              accept="image/jpeg, image/jpg"
-              onChange={handleChange}
-            // setFiles(e.target.files[0]);
-            />
-            <img style={{ width: "30%" }} src={filed} alt="" />
-            <br />
+                  })}
+                </Input>
+                <br />
 
-            <br />
+                <Label
+                  for="exampleSelect"
+                  style={{ fontWeight: "500", marginLeft: "0.5%" }}
+                >
+                  Select News Sub Category
+                </Label>
 
-            <Label
-              for="exampleEmail"
-              style={{ fontWeight: "500", marginLeft: "0.5%" }}
-            >
-              News Tittle (Only Upto 52 Characters)
-            </Label>
+                <Input
+                  id="exampleSelect"
+                  name="select"
+                  type="select"
+                  bsSize="lg"
+                  style={{ width: "30%" }}
+                  innerRef={Categosub}
+                >
 
-            <Input
-              id="exampleEmail"
-              name="text"
-              // placeholder="with a placeholder"
-              type="text"
-              style={{ width: "60%" }}
-              innerRef={NewsTittle}
-            />
-            <br />
-            <Label
-              for="exampleEmail"
-              style={{ fontWeight: "500", marginLeft: "0.5%" }}
-            >
-              News Sub Tittle (Only Upto 120 Characters)
-            </Label>
+                  <option defalut>
+                    ----
+                  </option>
 
-            <Input
-              id="exampleEmail"
-              name="text"
-              // placeholder="with a placeholder"
-              type="text"
-              style={{ width: "60%" }}
-              innerRef={News}
-            />
-            {/* <JoditEditor
+                  {newsubcate.map((item, index) => {
+                    return (
+
+                      item.SubCategory.map((item, index) => {
+                        return (
+
+                          <option key={index} value={item.EngSubCategory}>
+                            {item.GujSubCategory}{" "}
+                          </option>
+                        );
+                      })
+                    )
+                  })}
+                </Input>
+                <br />
+                <Label
+                  for="exampleFile"
+                  style={{ fontWeight: "500", marginLeft: "0.5%" }}
+                >
+                  Select Image
+                </Label>
+                <Input
+                  // id="exampleFile"
+                  innerRef={Imgt}
+                  name="file"
+                  type="file"
+                  // value={}
+                  style={{ width: "30%" }}
+                  accept="image/jpeg, image/jpg"
+                  onChange={handleChange}
+                // setFiles(e.target.files[0]);
+                />
+                <img style={{ width: "30%" }} src={filed} alt="" />
+                <br />
+
+                <br />
+
+                <Label
+                  for="exampleEmail"
+                  style={{ fontWeight: "500", marginLeft: "0.5%" }}
+                >
+                  News Tittle (Only Upto 52 Characters)
+                </Label>
+
+                <Input
+                  id="exampleEmail"
+                  name="text"
+                  // placeholder="with a placeholder"
+                  type="text"
+                  style={{ width: "60%" }}
+                  innerRef={NewsTittle}
+                />
+                <br />
+                <Label
+                  for="exampleEmail"
+                  style={{ fontWeight: "500", marginLeft: "0.5%" }}
+                >
+                  News Sub Tittle (Only Upto 120 Characters)
+                </Label>
+
+                <Input
+                  id="exampleEmail"
+                  name="text"
+                  // placeholder="with a placeholder"
+                  type="text"
+                  style={{ width: "60%" }}
+                  innerRef={News}
+                />
+                {/* <JoditEditor
               ref={NewsTittle}
               value={tittlecontent}
               // config={config}
@@ -383,15 +397,15 @@ console.log("Categosub",Categosub.current.value);
               onBlur={(newContent) => setTittleContent(newContent)} // preferred to use only this option to update the content for performance reasons
               onChange={(newContent) => {console.log(newContent)}}
             /> */}
-            <br />
+                <br />
 
-            <Label
-              for="exampleText"
-              style={{ fontWeight: "500", marginLeft: "0.5%" }}
-            >
-              News{" "}
-            </Label>
-            {/* <Input
+                <Label
+                  for="exampleText"
+                  style={{ fontWeight: "500", marginLeft: "0.5%" }}
+                >
+                  News{" "}
+                </Label>
+                {/* <Input
               id="exampleText"
               name="text"
               type="textarea"
@@ -399,28 +413,30 @@ console.log("Categosub",Categosub.current.value);
               innerRef={News}
             /> */}
 
-            <JoditEditor
-              ref={editor}
-              value=""
-              config={config}
-              tabIndex={1} // tabIndex of textarea
-              onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-              onChange={(newContent) => {
-                console.log(newContent);
-              }}
-            />
-            <br />
-            <Button
-              color="primary"
-              tag="input"
-              type="submit"
-              value="Submit"
-              style={{ fontWeight: "500", marginLeft: "0.5%" }}
-              onClick={values}
-            />
-          </FormGroup>
-        </CardBody>
-      </Card>
+                <JoditEditor
+                  ref={editor}
+                  value=""
+                  config={config}
+                  tabIndex={1} // tabIndex of textarea
+                  onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+                  onChange={(newContent) => {
+                    console.log(newContent);
+                  }}
+                />
+                <br />
+                <Button
+                  color="primary"
+                  tag="input"
+                  type="submit"
+                  value="Submit"
+                  style={{ fontWeight: "500", marginLeft: "0.5%" }}
+                  onClick={values}
+                />
+              </FormGroup>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
     </>
   );
 }
