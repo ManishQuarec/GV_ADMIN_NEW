@@ -18,28 +18,7 @@ const Login = () => {
     };
 
     return (
-        // <div className="GJHAgh8972">
-        //     <div className="GHSG86356">
-        //         <h1>Welcome Admin</h1>
-        //         <form onSubmit={handleSubmit}>
-        //             <input
-        //                 type="text"
-        //                 name="Username"
-        //                 value={username}
-        //                 onChange={(e) => setusername(e.target.value)}
-        //                 pl
-        //             />
-        //             <br />
-        //             <input
-        //                 type="password"
-        //                 name="Password"
-        //                 value={password}
-        //                 onChange={(e) => setpassword(e.target.value)}
-        //             />
-        //             <input type="submit" value="Submit" />
-        //         </form>
-        //     </div>
-        // </div>
+
         <>
             <div className="container">
                 <div className="row">
@@ -58,6 +37,7 @@ const Login = () => {
                                         <input
                                             type="text"
                                             className="form-control"
+                                            id="HDGD"
                                             value={username}
                                             onChange={(e) => setusername(e.target.value)}
                                             required
@@ -71,7 +51,8 @@ const Login = () => {
                                             value={password}
                                             onChange={(e) => setpassword(e.target.value)}
                                             required
-                                            // pattern=".{6,}"
+                                            id="HDGD"
+                                        // pattern=".{6,}"
                                         />
                                     </div>
                                     <div className="col-lg-12 loginbttm">

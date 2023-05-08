@@ -36,7 +36,7 @@
 }
 
 input[type=text] {
-    background-color: #1A2226;
+    /* background-color: #1A2226; */
     border: none;
     border-bottom: 2px solid #0DB8DE;
     border-top: 0px;
@@ -45,11 +45,15 @@ input[type=text] {
     outline: 0;
     margin-bottom: 20px;
     padding-left: 0px;
-    color: #ECF0F5;
+    color: #000000;
+}
+
+#HDGD {
+    color: #000;
 }
 
 input[type=password] {
-    background-color: #1A2226;
+    /* background-color: #1A2226; */
     border: none;
     border-bottom: 2px solid #0DB8DE;
     border-top: 0px;
@@ -58,7 +62,6 @@ input[type=password] {
     outline: 0;
     padding-left: 0px;
     margin-bottom: 20px;
-    color: #ECF0F5;
 }
 
 .form-group {
@@ -72,8 +75,7 @@ input[type=password] {
     box-shadow: none;
     border-bottom: 2px solid #0DB8DE;
     outline: 0;
-    background-color: #1A2226;
-    color: #ECF0F5;
+    /* background-color: #1A2226; */
 }
 
 input:focus {
